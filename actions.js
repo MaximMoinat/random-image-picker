@@ -1,4 +1,4 @@
-const IMAGES = [
+const IMAGES_METEO = [
     "resources/fair.png" // TODO: times 4
     ,"resources/fair2.png" // TODO: times 5
     ,"resources/headwind.png"
@@ -8,23 +8,26 @@ const IMAGES = [
 ];
 const ROUNDS = 1; // Amount of rounds the carousel will shift trough
 const CAROUSEL_TIME = 5; // Total time in seconds carousel will spin
+let images = IMAGES_METEO;
 
 function pickRandomImage() {
-    if (!IMAGES.length) {
+    $("#reset-button").prop('disabled', false);
+    $("#pick-button").prop('disabled', true);
+    if (!images.length) {
         $("#information-text").html("No images left");
         $("#random-image").html("");
     } else {
-        selected = Math.floor(Math.random() * IMAGES.length); // Pick random image
-        const totalCarousel = ROUNDS * IMAGES.length + selected; // Total images that will be shown in carousel
+        let selected = Math.floor(Math.random() * images.length); // Pick random image
+        const totalCarousel = ROUNDS * images.length + selected; // Total images that will be shown in carousel
         let durations = computeDurations(totalCarousel); // Compute a list of durations for each image display in the carousel
         doCarousel(0, durations);
     }
 }
 
 function doCarousel(index, durations) {
-    index = index % IMAGES.length;
+    index = index % images.length;
     if (durations.length > 0) {
-        data = `<img class="img-thumbnail random-image" src="` + IMAGES[index] + `">`;
+        let data = `<img class="img-thumbnail random-image" src="` + images[index] + `">`;
         $("#random-image").html(data);
         const duration = durations.shift();
         setTimeout(function() {
@@ -32,9 +35,10 @@ function doCarousel(index, durations) {
         }, duration * 1000);
     } else {
         // Freeze and remove image from list
-        data = `<img class="img-thumbnail random-image" src="` + IMAGES[index] + `">`;
+        let data = `<img class="img-thumbnail random-image" src="` + images[index] + `">`;
         $("#random-image").html(data);
-        IMAGES.splice(index, 1);
+        images.splice(index, 1);
+        $("#pick-button").prop('disabled', false);
     }
 }
 
@@ -50,8 +54,8 @@ function computeDurations(steps) {
  * Some beautiful math to create a increasing-time effect in the carousel spin
  */
 function f(x, steps) {
-    const carousel_time = Math.min(CAROUSEL_TIME, IMAGES.length);
-    sigm = 0;
+    // const carousel_time = Math.min(CAROUSEL_TIME, images.length);
+    let sigm = 0;
     for (let i = 1; i <= steps; i += 1) {
         sigm += Math.log(i);
     }
@@ -61,6 +65,6 @@ function f(x, steps) {
 }
 
 function reset() {
-    // TODO
-    console.warn("Not yet implemented, you fool.")
+    images = IMAGES_METEO;
+    $("#reset-button").prop('disabled', true);
 }
