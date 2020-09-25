@@ -1,25 +1,13 @@
-const IMAGES = []; // Will put all images in this
+const IMAGES = [
+    "resources/fair.png" // TODO: times 4
+    ,"resources/fair2.png" // TODO: times 5
+    ,"resources/headwind.png"
+    ,"resources/tailwind.png"
+    ,"resources/crosswind.png"
+    ,"resources/wet.png"
+];
 const ROUNDS = 1; // Amount of rounds the carousel will shift trough
 const CAROUSEL_TIME = 5; // Total time in seconds carousel will spin
-
-const AMOUNT_STEPS = 2;
-let CURRENT_STEP = 1;
-
-function previewImages() {
-    $("#yourimagestitle").html("Images selected by you");
-    $("#usage").html("");
-    for (let file of document.getElementById("imagesInput").files) {
-        let oFReader = new FileReader();
-        oFReader.readAsDataURL(file);
-
-        oFReader.onload = function(oFREvent) {
-            data = $("#images").html()
-            data += `<img class="img-thumbnail thumbnail" src='` + oFREvent.target.result + `'>`
-            $("#images").html(data);
-            IMAGES.push(oFREvent.target.result);
-        };
-    }
-}
 
 function pickRandomImage() {
     if (!IMAGES.length) {
@@ -72,34 +60,7 @@ function f(x, steps) {
     return -a * Math.log(x) + c;
 }
 
-function nextStep() {
-    if (CURRENT_STEP < AMOUNT_STEPS) {
-        $(`#step-` + CURRENT_STEP).each(function() {
-            $(this).css("display", "none");
-        })
-        $(`#step-` + (CURRENT_STEP + 1)).each(function() {
-            $(this).css("display", "");
-        });
-        clearStep(CURRENT_STEP);
-        CURRENT_STEP++;
-    }
-}
-
-function previousStep() {
-    if (CURRENT_STEP > 0) {
-        $(`#step-` + CURRENT_STEP).each(function() {
-            $(this).css("display", "none");
-        })
-        $(`#step-` + (CURRENT_STEP - 1)).each(function() {
-            $(this).css("display", "");
-        });
-        clearStep(CURRENT_STEP);
-        CURRENT_STEP--;
-    }
-}
-
-function clearStep(step) {
-    $(`.step-` + step + `-clear`).each(function() {
-        $(this).html("");
-    });
+function reset() {
+    // TODO
+    console.warn("Not yet implemented, you fool.")
 }
