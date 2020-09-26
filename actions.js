@@ -1,6 +1,13 @@
 const IMAGES_METEO = [
-    "resources/fair.png" // TODO: times 4
-    ,"resources/fair2.png" // TODO: times 5
+    "resources/fair.png"
+    ,"resources/fair.png"
+    ,"resources/fair.png"
+    ,"resources/fair.png"
+    ,"resources/fair2.png"
+    ,"resources/fair2.png"
+    ,"resources/fair2.png"
+    ,"resources/fair2.png"
+    ,"resources/fair2.png"
     ,"resources/headwind.png"
     ,"resources/tailwind.png"
     ,"resources/crosswind.png"
