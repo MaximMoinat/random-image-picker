@@ -26,19 +26,22 @@ function pickRandomImage() {
 
 function doCarousel(index, durations) {
     index = index % images.length;
+    let randomImage = $("#random-image");
     if (durations.length > 0) {
-        let data = `<img class="img-thumbnail random-image" src="` + images[index] + `">`;
-        $("#random-image").html(data);
+        randomImage.prop("src", images[index]);
+        randomImage.css("background-color","transparent");
         const duration = durations.shift();
         setTimeout(function() {
             doCarousel(index + 1, durations);
         }, duration * 1000);
     } else {
         // Freeze and remove image from list
-        let data = `<img class="img-thumbnail random-image" src="` + images[index] + `">`;
-        $("#random-image").html(data);
-        images.splice(index, 1);
-        $("#pick-button").prop('disabled', false);
+        randomImage.prop("src", images[index]);
+        setTimeout(function() {
+            randomImage.css("background-color","black");
+            images.splice(index, 1);
+            $("#pick-button").prop('disabled', false);
+        }, 1000);
     }
 }
 
